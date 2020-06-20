@@ -6,10 +6,17 @@
 package cliente;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import org.omg.CORBA.BooleanHolder;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NamingContextExt;
@@ -18,23 +25,25 @@ import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import servidorAlertas.sop_corba.GestionAsintomaticosHelper;
 import servidorAlertas.sop_corba.GestionAsintomaticosOperations;
+import servidorAlertas.sop_corba.GestionAsintomaticosPackage.asintomaticoDTO;
 
 /**
  *
  * @author VICTOR MANUEL
  */
-public class GUICliente extends javax.swing.JFrame {
+public class GUICliente extends javax.swing.JFrame implements Runnable{
 
     static GestionAsintomaticosOperations ref;
+    asintomaticoDTO paciente;
     CardLayout cardLayout;
+    boolean stop;
     
     /**
      * Creates new form GUICliente
      */    
     public GUICliente() {
-        cardLayout = (CardLayout) (jPanelCardLayout.getLayout());
-        cardLayout.show(jPanelCardLayout, "cardEstadisticas");
         initComponents();
+        cardLayout = (CardLayout) (jPanelCardLayout.getLayout());
     }
 
     /**
@@ -289,24 +298,14 @@ public class GUICliente extends javax.swing.JFrame {
             tipo_id = "TI";
             if(jRadioButtonPP.isSelected())
             tipo_id = "PP";
-
-            ClsAsintomaticoDTO paciente = new ClsAsintomaticoDTO(jTextFieldNombres.getText(),jTextFieldApellidos.getText(),tipo_id, Integer.parseInt(jTextFieldId.getText()), jTextFieldDireccion.getText());
-            ClsAsintomaticoCllbckImpl asintomatico;
-
-            try {
-                asintomatico = new ClsAsintomaticoCllbckImpl(paciente,this);
-                if(objetoRemotoServidorAlertas.registrarAsintomatico(asintomatico) ){
-                    JOptionPane.showMessageDialog(null, "Se registro paciente exitosamente!!!");
-                    pacientes.put(Integer.parseInt(jTextFieldId.getText()), paciente);
-                    limpiarPanelRegistrar();
-                    jButtonConsultar.setEnabled(true);
-                    jButtonEnviarIndicadores.setEnabled(true);
-                }else
-                JOptionPane.showMessageDialog(null, "No se registro el paciente!!!");
-
-            } catch (RemoteException ex) {
-                Logger.getLogger(GUICliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            paciente = new asintomaticoDTO(jTextFieldNombres.getText(),jTextFieldApellidos.getText(),tipo_id, Integer.parseInt(jTextFieldId.getText()), jTextFieldDireccion.getText());
+            BooleanHolder res = new BooleanHolder();
+            ref.registrarAsintomatico(paciente, res);
+            if(res.value){
+                JOptionPane.showMessageDialog(null, "Se registro paciente exitosamente!!!");
+                cardLayout.show(jPanelCardLayout, "cardIndicadores");
+            }else System.out.println("No se registro paciente!!!");
         }
     }//GEN-LAST:event_jButtonRegistrarPacienteActionPerformed
 
@@ -390,21 +389,13 @@ public class GUICliente extends javax.swing.JFrame {
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
         // TODO add your handling code here:
         Thread enviarIndicadores = new Thread(this);
+        stop = false;
         enviarIndicadores.start();
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void jButtonDetenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetenerActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldIdIndicador.getText() != ""){
-            int id = Integer.parseInt(jTextFieldIdIndicador.getText() );
-            if(procesos.containsKey(id) && procesos.get(id)){
-                procesos.put(id, false);
-            }else{
-                JOptionPane.showMessageDialog(null, "Enviar indicadores del paciente con id "+id+" no se esta ejecutando");
-            }
-        }else
-        JOptionPane.showMessageDialog(null, "Ingrese numero de identificacion");
-
+        stop = true;
     }//GEN-LAST:event_jButtonDetenerActionPerformed
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
@@ -507,4 +498,54 @@ public class GUICliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPuerto;
     private javax.swing.JTextPane jTextPaneArea;
     // End of variables declaration//GEN-END:variables
+ 
+    
+    @Override
+    public void run() {
+        
+        
+                
+        while (!stop) {
+            //hacemos un ciclo infinito
+            try {
+                float ToC = (float) (Math.random() * 7 + 35);
+                int fCardiaca = (int) (Math.random() * 31 + 55);
+                int fRespiratoria = (int) (Math.random() * 31 + 65);
+                appendToPane(jTextPaneArea, "\nEnviando indicadores...\n", Color.blue);
+                appendToPane(jTextPaneArea, "Paciente: "+paciente.nombres+" "+paciente.apellidos+"\n", Color.blue);
+                appendToPane(jTextPaneArea, paciente.tipo_id+": "+paciente.id+"\n", Color.blue);
+                appendToPane(jTextPaneArea, "Frecuencia cardiaca: " + fCardiaca+"\n", Color.black);
+                appendToPane(jTextPaneArea, "Frecuencia respiratoria: " + fRespiratoria+"\n", Color.black);
+                appendToPane(jTextPaneArea, "Temperatura: " + ToC + " C.\n", Color.black);
+                ref.enviarIndicadores(id, fCardiaca, fRespiratoria, ToC);
+
+
+                Thread.sleep(8000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        appendToPane(jTextPaneArea, "Ha finalizado el proceso enviar indicadores para el paciente "+paciente.tipo_id+": "+paciente.id+" "+paciente.nombres+" "+paciente.apellidos+"\n", Color.GREEN);
+
+    }
+    
+    
+    //metodo para adicionar texto con color a un jTextPaneArea
+    private void appendToPane(JTextPane tp, String msg, Color c)
+    {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
+        
+
+    }
+
 }
