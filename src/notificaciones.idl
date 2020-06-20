@@ -1,0 +1,9 @@
+module sop_corba{
+
+ interface GestionNotificaciones{
+struct ClsMensajeNotificacionDTO{
+string mensaje;
+};
+ void notificarRegistro(in ClsMensajeNotificacionDTO objNotificacion);
+ };
+};
