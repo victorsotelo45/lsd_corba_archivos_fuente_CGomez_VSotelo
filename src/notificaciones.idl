@@ -1,9 +1,27 @@
-module sop_corba{
+module servidorNotificaciones{
+	module sop_corba{
+	    interface NotificacionInt{
+		struct ClsAsintomaticoDTO{
+			     string nombres;
+		  	     string apellidos;
+			     string tipo_id;
+			     long id;
+			     string direccion;
+		};
 
- interface GestionNotificaciones{
-struct ClsMensajeNotificacionDTO{
-string mensaje;
-};
- void notificarRegistro(in ClsMensajeNotificacionDTO objNotificacion);
- };
+		struct ClsMensajeNotificacionDTO{
+			  ClsAsintomaticoDTO pacienteAsintomatico;
+		       	  long frecuenciaCardiaca;
+			  long frecuenciaRespiratoria;
+		      	  float temperatura;
+			  string fechaAlerta;
+			  string horaAlerta;
+			  string mensaje;
+		};
+
+	
+		void notificarRegistro(in ClsMensajeNotificacionDTO objMensajeNotificacion);
+	};
+   };
+
 };

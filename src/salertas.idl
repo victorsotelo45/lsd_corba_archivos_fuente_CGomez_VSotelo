@@ -1,0 +1,22 @@
+module servidorAlertas{
+	module sop_corba{
+		interface AsintomaticoCllbckInt{
+	 	        void notificarMensajeCllbck(in string mensaje);
+		};
+		struct ClsAsintomaticoDTO{
+		     string nombres;
+	  	     string apellidos;
+		     string tipo_id;
+		     long id;
+		     string direccion;
+		     AsintomaticoCllbckInt objAsintomaticoCllbck; 	
+		};
+
+		interface GestionAsintomaticosInt{
+			boolean registrarAsintomatico(in ClsAsintomaticoDTO objAsintomaticoDTO);
+		 	ClsAsintomaticoDTO consultarAsintomatico(in long id);
+    			boolean enviarIndicadores(in long id, in long frecuenciaCardiaca, in long frecuenciaRespiratoria, in float temperatura);
+		};
+		
+	};
+};
