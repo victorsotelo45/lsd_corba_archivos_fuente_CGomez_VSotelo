@@ -80,6 +80,8 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         jTextFieldDireccion = new javax.swing.JTextField();
         jTextFieldId = new javax.swing.JTextField();
         jButtonRegistrarPaciente = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
         jPanelIndicadores = new javax.swing.JPanel();
         jButtonEnviar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -166,7 +168,13 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 jButtonRegistrarPacienteActionPerformed(evt);
             }
         });
-        jPanelRegistrar.add(jButtonRegistrarPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+        jPanelRegistrar.add(jButtonRegistrarPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+
+        jButtonModificar.setText("Modificar");
+        jPanelRegistrar.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
+
+        jButtonEliminar.setText("Eliminar");
+        jPanelRegistrar.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
 
         jPanelCardLayout.add(jPanelRegistrar, "cardRegistrar");
 
@@ -494,7 +502,9 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDetener;
+    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEnviar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonRegistrar;
     private javax.swing.JButton jButtonRegistrarPaciente;
     private javax.swing.JButton jButtonSalir;
