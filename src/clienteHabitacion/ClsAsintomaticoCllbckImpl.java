@@ -5,8 +5,8 @@ import servidorAlertas.sop_corba.AsintomaticoCllbckIntOperations;
 
 public class ClsAsintomaticoCllbckImpl implements AsintomaticoCllbckIntOperations
 {       
-        //GUICliente GUIC;
-        GUICliente2 GUIC;
+        GUICliente GUIC1;
+        GUICliente2 GUIC2;
         
         public ClsAsintomaticoCllbckImpl()
         {
@@ -14,21 +14,21 @@ public class ClsAsintomaticoCllbckImpl implements AsintomaticoCllbckIntOperation
 
         }
         
-//        public ClsAsintomaticoCllbckImpl(GUICliente GUIC) 
-//        {
-//                this.GUIC = GUIC;
-//        }
+        public ClsAsintomaticoCllbckImpl(GUICliente GUIC) 
+        {
+                this.GUIC1 = GUIC;
+        }
         
         public ClsAsintomaticoCllbckImpl(GUICliente2 GUIC) 
         {
-                this.GUIC = GUIC;
+                this.GUIC2 = GUIC;
         }
         
     
         @Override
         public void notificarMensajeCllbck(String mensaje){
             System.out.println("Desde notificarMensajeCllbck()...");
-            GUIC.fijarAlerta(mensaje);
+            GUIC2.fijarAlerta(mensaje);
             System.out.println(mensaje); 
             System.out.println("Saliendo de notificarMensajeCllbck()...");
         }

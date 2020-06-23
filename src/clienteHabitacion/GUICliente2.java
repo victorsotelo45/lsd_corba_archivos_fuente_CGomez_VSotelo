@@ -101,16 +101,12 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         jPanelCardLayout.setLayout(new java.awt.CardLayout());
 
         jPanelRegistrar.setName(""); // NOI18N
-        jPanelRegistrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelTipoId.setText("Tipo de identificacion");
-        jPanelRegistrar.add(jLabelTipoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         jLabelId.setText("Numero de identificacion");
-        jPanelRegistrar.add(jLabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 80, -1, -1));
 
         jLabelNombre.setText("Nombre");
-        jPanelRegistrar.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 118, -1, -1));
 
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -118,53 +114,43 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 jButtonSalirActionPerformed(evt);
             }
         });
-        jPanelRegistrar.add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
 
         buttonGroupTipo.add(jRadioButtonCC);
         jRadioButtonCC.setText("CC");
-        jPanelRegistrar.add(jRadioButtonCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
 
         buttonGroupTipo.add(jRadioButtonTI);
         jRadioButtonTI.setText("TI");
-        jPanelRegistrar.add(jRadioButtonTI, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
         buttonGroupTipo.add(jRadioButtonPP);
         jRadioButtonPP.setText("PP");
-        jPanelRegistrar.add(jRadioButtonPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
 
         jLabelApellido.setText("Apellido");
-        jPanelRegistrar.add(jLabelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 156, -1, -1));
 
         jLabelDireccion.setText("Direccion de domicilio");
-        jPanelRegistrar.add(jLabelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 194, -1, -1));
 
         jTextFieldNombres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNombresKeyTyped(evt);
             }
         });
-        jPanelRegistrar.add(jTextFieldNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 198, -1));
 
         jTextFieldApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldApellidosKeyTyped(evt);
             }
         });
-        jPanelRegistrar.add(jTextFieldApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 198, -1));
 
         jTextFieldDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDireccionKeyTyped(evt);
             }
         });
-        jPanelRegistrar.add(jTextFieldDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 198, -1));
 
         jTextFieldId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldIdKeyTyped(evt);
             }
         });
-        jPanelRegistrar.add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 198, -1));
 
         jButtonRegistrarPaciente.setText("Registrar");
         jButtonRegistrarPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -172,13 +158,100 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 jButtonRegistrarPacienteActionPerformed(evt);
             }
         });
-        jPanelRegistrar.add(jButtonRegistrarPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jButtonModificar.setText("Modificar");
-        jPanelRegistrar.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
 
         jButtonEliminar.setText("Eliminar");
-        jPanelRegistrar.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
+
+        javax.swing.GroupLayout jPanelRegistrarLayout = new javax.swing.GroupLayout(jPanelRegistrar);
+        jPanelRegistrar.setLayout(jPanelRegistrarLayout);
+        jPanelRegistrarLayout.setHorizontalGroup(
+            jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jRadioButtonCC))
+                    .addComponent(jLabelTipoId))
+                .addGap(17, 17, 17)
+                .addComponent(jRadioButtonTI)
+                .addGap(13, 13, 13)
+                .addComponent(jRadioButtonPP))
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelId)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabelNombre)
+                .addGap(92, 92, 92)
+                .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabelApellido)
+                .addGap(90, 90, 90)
+                .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelDireccion)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jButtonModificar))
+                    .addComponent(jButtonRegistrarPaciente))
+                .addGap(1, 1, 1)
+                .addComponent(jButtonEliminar)
+                .addGap(10, 10, 10)
+                .addComponent(jButtonSalir))
+        );
+        jPanelRegistrarLayout.setVerticalGroup(
+            jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonCC)
+                    .addComponent(jLabelTipoId)
+                    .addComponent(jRadioButtonTI)
+                    .addComponent(jRadioButtonPP))
+                .addGap(17, 17, 17)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelId)
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelNombre)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabelApellido))
+                    .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabelDireccion))
+                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonModificar)
+                    .addComponent(jButtonRegistrarPaciente)
+                    .addComponent(jButtonEliminar)
+                    .addComponent(jButtonSalir)))
+        );
 
         jPanelCardLayout.add(jPanelRegistrar, "cardRegistrar");
 
@@ -212,7 +285,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                     .addGroup(jPanelIndicadoresLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelIndicadoresLayout.setVerticalGroup(
             jPanelIndicadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,7 +383,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private void jTextFieldNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombresKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_BACK_SPACE) && (c != ' ') && (c !='ñ')&& (c !='Ñ'))
+        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_BACK_SPACE) && (c != ' '))
         {   evt.consume();
             getToolkit().beep();
             JOptionPane.showMessageDialog(null,"Ingrese solo letras!!!");
@@ -328,7 +401,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private void jTextFieldApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidosKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_BACK_SPACE) && (c != ' ') && (c !='ñ')&& (c !='Ñ'))
+        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_BACK_SPACE) && (c != ' '))
         {   evt.consume();
             getToolkit().beep();
             JOptionPane.showMessageDialog(null,"Ingrese solo letras!!!");
@@ -345,7 +418,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private void jTextFieldDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDireccionKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < '0' || c > '9') && (c != KeyEvent.VK_BACK_SPACE) && (c != ' ') && (c !='ñ')&& (c !='Ñ') && (c !='#') && (c !='-') && (c !='.') && (c !='/' ))
+        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < '0' || c > '9') && (c != KeyEvent.VK_BACK_SPACE) && (c != ' '))
         {   evt.consume();
             getToolkit().beep();
             JOptionPane.showMessageDialog(null,"Caracter incorrecto para la direccion!!!");
@@ -613,13 +686,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
             ref = GestionAsintomaticosIntHelper.narrow(ncRef.resolve_str(name));
             estaRegistradoNS = true;
             System.out.println("Obtenido el manejador sobre el servidor de objetos: " + ref);
-        } catch (InvalidName ex) {
-            Logger.getLogger(GUICliente2.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotFound ex) {
-            Logger.getLogger(GUICliente2.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (CannotProceed ex) {
-            Logger.getLogger(GUICliente2.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
+        } catch (InvalidName | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
             Logger.getLogger(GUICliente2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
