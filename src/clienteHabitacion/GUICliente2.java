@@ -64,6 +64,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupTipo = new javax.swing.ButtonGroup();
         jPanelCardLayout = new javax.swing.JPanel();
         jPanelRegistrar = new javax.swing.JPanel();
         jLabelTipoId = new javax.swing.JLabel();
@@ -119,12 +120,15 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         });
         jPanelRegistrar.add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
 
+        buttonGroupTipo.add(jRadioButtonCC);
         jRadioButtonCC.setText("CC");
         jPanelRegistrar.add(jRadioButtonCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
 
+        buttonGroupTipo.add(jRadioButtonTI);
         jRadioButtonTI.setText("TI");
         jPanelRegistrar.add(jRadioButtonTI, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
+        buttonGroupTipo.add(jRadioButtonPP);
         jRadioButtonPP.setText("PP");
         jPanelRegistrar.add(jRadioButtonPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
 
@@ -435,9 +439,10 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 //*** Obtener la referencia para el tie
                 AsintomaticoCllbckInt reftie=gptie._this(orb);
 
-                ClsAsintomaticoDTO asintomaticoCllbck = new ClsAsintomaticoDTO(jTextFieldNombres.getText(),jTextFieldApellidos.getText(),tipo_id, Integer.parseInt(jTextFieldId.getText()), jTextFieldDireccion.getText(),reftie);
+                paciente = new ClsAsintomaticoDTO(jTextFieldNombres.getText(),jTextFieldApellidos.getText(),tipo_id, Integer.parseInt(jTextFieldId.getText()), jTextFieldDireccion.getText(),reftie);
 
-                if(ref.registrarAsintomatico(asintomaticoCllbck) ){
+                if(ref.registrarAsintomatico(paciente) ){ 
+                    cardLayout.show(jPanelCardLayout, "cardIndicadores");
                     JOptionPane.showMessageDialog(null, "Se registro paciente exitosamente!!!");
                     //limpiarPanelRegistrar();
                     //jButtonConsultar.setEnabled(true);
@@ -501,6 +506,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jButtonDetener;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEnviar;
@@ -567,6 +573,14 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         appendToPane(jTextPaneArea, mensaje+"\n", Color.red);
     }
     
+        public void limpiarPanelRegistrar(){
+        buttonGroupTipo.clearSelection();
+        jTextFieldId.setText("");
+        jTextFieldNombres.setText("");
+        jTextFieldApellidos.setText("");
+        jTextFieldDireccion.setText("");
+    }
+    
     //metodo para adicionar texto con color a un jTextPaneArea
     private void appendToPane(JTextPane tp, String msg, Color c)
     {
@@ -587,7 +601,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private static void registrarOrb(String[] vec){
 
         try {
-            ORB orb = ORB.init(vec, null);
+            orb = ORB.init(vec, null);
 
             // se obtiene la referencia al name service
             org.omg.CORBA.Object objRef;

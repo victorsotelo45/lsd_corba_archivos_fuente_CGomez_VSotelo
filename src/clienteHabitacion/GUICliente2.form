@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupTipo">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -104,6 +108,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonCC">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroupTipo"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="CC"/>
               </Properties>
               <Constraints>
@@ -114,6 +121,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonTI">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroupTipo"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="TI"/>
               </Properties>
               <Constraints>
@@ -124,6 +134,9 @@
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonPP">
               <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroupTipo"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="PP"/>
               </Properties>
               <Constraints>
