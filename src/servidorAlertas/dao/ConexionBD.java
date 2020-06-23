@@ -2,7 +2,7 @@
  * Utiliza la API JDBC de java para conectarse a una base de datos MySQL
  * -----------------------------------------------------------------
  */
-package Datos;
+package servidorAlertas.dao;
 import java.sql.*;
 
 /**
@@ -25,13 +25,14 @@ public class ConexionBD {
         login="root";
         password="";
         url = "jdbc:mysql://localhost/"+bd;
+        
     }
     /**Permite hacer la conexion con la base de datos
      * @return 
      */
     public int conectar(){
         try{
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
            //crea una instancia de la controlador de la base de datos
             con = DriverManager.getConnection(url,login,password);
             // gnera una conexión con la base de datos

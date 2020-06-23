@@ -14,7 +14,7 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
-import servidorAlertas.dao.ClsAsintomaticoDAO;
+import servidorAlertas.dao.ClsAlertaDTO;
 import servidorNotificaciones.sop_corba.NotificacionInt;
 import servidorNotificaciones.sop_corba.NotificacionIntPOATie;
 
@@ -373,7 +373,7 @@ public void fijarMensajeTipoAlerta(String mensaje){
     
     jLabelMensajeTipoAlerta.setText(mensaje);
 }
-public synchronized void fijarAlerta(ArrayList<ClsAsintomaticoDAO> asintomaticosDAO){
+public synchronized void fijarAlerta(ArrayList<ClsAlertaDTO> asintomaticosDAO){
     limpiarAlertas();
     int indice = asintomaticosDAO.size() - 1;
     int i = 0;

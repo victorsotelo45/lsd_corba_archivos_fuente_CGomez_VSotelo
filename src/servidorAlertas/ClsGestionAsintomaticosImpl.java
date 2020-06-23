@@ -12,7 +12,12 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
+import servidorAlertas.dao.AlertaDAOInt;
 import servidorAlertas.dao.AsintomaticoDAOInt;
+import servidorAlertas.dao.ClsAlertaDTO;
+import servidorAlertas.dao.ClsAsintomaticoDAOImpl;
+import servidorAlertas.dao.ClslAlertaDAOImpl;
+import servidorAlertas.dao.ConexionBD;
 import servidorAlertas.sop_corba.ClsAsintomaticoDTO;
 import servidorAlertas.sop_corba.GestionAsintomaticosIntOperations;
 import servidorNotificaciones.sop_corba.NotificacionInt;
@@ -66,12 +71,17 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
             
         System.out.println("Desde registrarAsintomatico()...");
         int id = objAsintomaticoCllbck.id;
+        AsintomaticoDAOInt objAsintomaticoDAO = new ClsAsintomaticoDAOImpl();
+        ConexionBD objConexionBD = new ConexionBD();
         ClsAsintomaticoDTO pacienteAsintomatico = consultarAsintomatico(id);
         boolean  bandera = false;
         if(pacienteAsintomatico.id == -1)       
         {   if(this.asintomaticos.size() < this.numeroPacientes)
             {
                   bandera = this.asintomaticos.add(objAsintomaticoCllbck);
+                  objAsintomaticoDAO.registrarAsintomaticoDTO(objAsintomaticoCllbck);
+                  
+                  
 
             }else
             {
@@ -124,7 +134,8 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
         boolean bandera = false;
         int puntuacionIndicadores = 0; 
         int puntuacionFrecCardiaca = 0, puntuacionFrecRespiratoria = 0, puntuacionTemperatura = 0;
-        //AsintomaticoDAOInt objetoAsintomaticoDAO;    
+        AlertaDAOInt objAlertaDAOInt;  
+        ClsAlertaDTO objAlerta;
         //ClsMensajeNotificacionDTO objMensajeNotificacion;
                 
         ClsAsintomaticoDTO objAsintomaticoCllbck = consultarAsintomatico(id);
@@ -150,7 +161,8 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
             apellidos = objAsintomaticoCllbck.apellidos;
             tipo_id = objAsintomaticoCllbck.tipo_id;
             
-            //objetoAsintomaticoDAO = new ClsAsintomaticoDAOImpl();
+            
+            objAlertaDAOInt = new ClslAlertaDAOImpl();
             
             if(puntuacionIndicadores == 0 || puntuacionIndicadores == 1)
             {
@@ -166,6 +178,11 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
                 if(puntuacionFrecCardiaca == 0) frecuenciaCardiaca = 0;
                 if(puntuacionFrecRespiratoria == 0) frecuenciaRespiratoria = 0;
                 if(puntuacionTemperatura == 0) temperatura = 0;
+                
+                objAlerta = new ClsAlertaDTO(id, fechaAlerta, horaAlerta, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, puntuacionIndicadores);
+                objAlertaDAOInt.registrarAlerta(objAlerta);
+                objAlertaDAOInt.registrarAlerta(objAlerta);
+                
                 //objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
                 //objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
             }
@@ -175,6 +192,9 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
                 //objetoAsintomaticoDAO.escribirHistorialAsintomatico(pacienteAsintomatico, fechaAlerta, horaAlerta, puntuacionIndicadores);
                 mensaje = "Alerta, el personal médico debe remitir el paciente "+nombres+" "+apellidos+" identificado con ["+tipo_id+"]["+id+"] al hospital!!!";
                 objAsintomaticoCllbck.objAsintomaticoCllbck.notificarMensajeCllbck(mensaje);
+                objAlerta = new ClsAlertaDTO(id, fechaAlerta, horaAlerta, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, puntuacionIndicadores);
+                objAlertaDAOInt.registrarAlerta(objAlerta);
+                objAlertaDAOInt.registrarAlerta(objAlerta);
                 //objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
                 //objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
             }

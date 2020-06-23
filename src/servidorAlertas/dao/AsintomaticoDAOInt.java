@@ -6,17 +6,18 @@
 package servidorAlertas.dao;
 
 import java.util.ArrayList;
+import servidorAlertas.sop_corba.ClsAsintomaticoDTO;
 
 
 public interface AsintomaticoDAOInt {
     
-    public boolean registrarAsintomaticoDAO(ClsAsintomaticoDAO asintomatico);
+    public boolean registrarAsintomaticoDTO(ClsAsintomaticoDTO asintomatico);
     
-    public ArrayList<ClsAsintomaticoDAO> consultarAsintomaticosDAO(); 
+    public ArrayList<ClsAsintomaticoDTO> consultarAsintomaticosDTO(); 
     
-    public ClsAsintomaticoDAO consultarAsintomaticoDAO(int idAsintomatico);   
+    public ClsAsintomaticoDTO consultarAsintomaticoDTO(int idAsintomatico);   
     
-    public boolean actualizarAsintomaticoDAO(ClsAsintomaticoDAO objAsintomatico, int idAsintomatico);  
+    public boolean actualizarAsintomaticoDTO(ClsAsintomaticoDTO objAsintomatico, int idAsintomatico);  
     
-    public boolean eliminarAsintomatico(int idAsintomatico);
+    public boolean eliminarAsintomaticoDTO(int idAsintomatico);
 }

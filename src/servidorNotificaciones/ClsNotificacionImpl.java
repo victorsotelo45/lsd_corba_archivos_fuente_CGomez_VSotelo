@@ -5,7 +5,7 @@ package servidorNotificaciones;
 import java.util.ArrayList;
 import java.util.HashMap;
 //import servidorAlertas.dao.AsintomaticoDAOInt;
-import servidorAlertas.dao.ClsAsintomaticoDAO;
+import servidorAlertas.dao.ClsAlertaDTO;
 import servidorNotificaciones.sop_corba.NotificacionIntPackage.ClsMensajeNotificacionDTO;
 import java.applet.AudioClip;
 import servidorAlertas.sop_corba.ClsAsintomaticoDTO;
@@ -25,7 +25,7 @@ public class ClsNotificacionImpl implements NotificacionIntOperations{
         System.out.println("Desde notificarRegistro()...");
      
         ClsAsintomaticoDTO pacienteAsintomatico = objMensajeNotificacion.pacienteAsintomatico;
-        ArrayList<ClsAsintomaticoDAO> pacientesDAO;
+        ArrayList<ClsAlertaDTO> pacientesDAO;
         int frecuanciaCardiaca, frecuenciaRespiratoria;
         float temperatura;
         
