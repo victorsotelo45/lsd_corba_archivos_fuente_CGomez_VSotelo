@@ -563,7 +563,9 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         appendToPane(jTextPaneArea, "Ha finalizado el proceso enviar indicadores para el paciente "+paciente.tipo_id+": "+paciente.id+" "+paciente.nombres+" "+paciente.apellidos+"\n", Color.GREEN);
 
     }
-    
+    public void fijarAlerta(String mensaje){
+        appendToPane(jTextPaneArea, mensaje+"\n", Color.red);
+    }
     
     //metodo para adicionar texto con color a un jTextPaneArea
     private void appendToPane(JTextPane tp, String msg, Color c)
