@@ -66,8 +66,9 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
             
         System.out.println("Desde registrarAsintomatico()...");
         int id = objAsintomaticoCllbck.id;
+        ClsAsintomaticoDTO pacienteAsintomatico = consultarAsintomatico(id);
         boolean  bandera = false;
-        if(consultarAsintomatico(id) == null)       
+        if(pacienteAsintomatico.id == -1)       
         {   if(this.asintomaticos.size() < this.numeroPacientes)
             {
                   bandera = this.asintomaticos.add(objAsintomaticoCllbck);
@@ -90,7 +91,7 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
     {
             System.out.println("Desde consultarAsintomatico()...");
             
-            ClsAsintomaticoDTO pacienteAsintomatico = null;
+            ClsAsintomaticoDTO pacienteAsintomatico = new ClsAsintomaticoDTO("","","",-1,"",null);
             for(ClsAsintomaticoDTO objAsintomaticoCllbck:asintomaticos)
             {
                 if(objAsintomaticoCllbck.id == id)
@@ -123,12 +124,11 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
         boolean bandera = false;
         int puntuacionIndicadores = 0; 
         int puntuacionFrecCardiaca = 0, puntuacionFrecRespiratoria = 0, puntuacionTemperatura = 0;
-        AsintomaticoDAOInt objetoAsintomaticoDAO;    
-        ClsMensajeNotificacionDTO objMensajeNotificacion;
-        ClsAsintomaticoDTO pacienteAsintomatico;
-        
+        //AsintomaticoDAOInt objetoAsintomaticoDAO;    
+        //ClsMensajeNotificacionDTO objMensajeNotificacion;
+                
         ClsAsintomaticoDTO objAsintomaticoCllbck = consultarAsintomatico(id);
-        if(objAsintomaticoCllbck != null)
+        if(objAsintomaticoCllbck.id != -1)
         {
             if(frecuenciaCardiaca < 60 || frecuenciaCardiaca > 80) 
             {
@@ -166,8 +166,8 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
                 if(puntuacionFrecCardiaca == 0) frecuenciaCardiaca = 0;
                 if(puntuacionFrecRespiratoria == 0) frecuenciaRespiratoria = 0;
                 if(puntuacionTemperatura == 0) temperatura = 0;
-                objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
-                objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
+                //objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
+                //objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
             }
             
             if(puntuacionIndicadores >= 3)
@@ -175,8 +175,8 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
                 //objetoAsintomaticoDAO.escribirHistorialAsintomatico(pacienteAsintomatico, fechaAlerta, horaAlerta, puntuacionIndicadores);
                 mensaje = "Alerta, el personal médico debe remitir el paciente "+nombres+" "+apellidos+" identificado con ["+tipo_id+"]["+id+"] al hospital!!!";
                 objAsintomaticoCllbck.objAsintomaticoCllbck.notificarMensajeCllbck(mensaje);
-                objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
-                objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
+                //objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
+                //objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
             }
                
             bandera = true;
@@ -185,6 +185,6 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
         System.out.println("Saliendo de enviarIndicadores()...");
         return bandera;
     }
-    
+      
     
 }

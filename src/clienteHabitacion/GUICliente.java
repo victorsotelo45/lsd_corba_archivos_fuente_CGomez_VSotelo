@@ -509,7 +509,7 @@ public class GUICliente extends javax.swing.JFrame implements Runnable{
         {    
             // TODO add your handling code here:
             ClsAsintomaticoDTO pacienteAsintomatico = objetoRefServidorAlertas.consultarAsintomatico(Integer.parseInt(jTextFieldIdConsulta.getText()) );
-            if(pacienteAsintomatico != null)
+            if(pacienteAsintomatico.id !=-1)
             {
                 jTextAreaConsultas.append("Datos del paciente asintomatico\n");
                 jTextAreaConsultas.append("Nombres: "+pacienteAsintomatico.nombres+"\n");
@@ -758,7 +758,7 @@ public class GUICliente extends javax.swing.JFrame implements Runnable{
             JOptionPane.showMessageDialog(null, "ya existe un proceso enviar indicadores para el paciente con id "+id);
         }else{
             ClsAsintomaticoDTO pacienteAsintomatico = objetoRefServidorAlertas.consultarAsintomatico(id);
-            if(pacienteAsintomatico != null)
+            if(pacienteAsintomatico.id != -1)
             {
                 if(pacientes.containsKey(id)){
                     procesos.put(id, true);

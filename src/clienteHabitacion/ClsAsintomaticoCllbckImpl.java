@@ -5,7 +5,8 @@ import servidorAlertas.sop_corba.AsintomaticoCllbckIntOperations;
 
 public class ClsAsintomaticoCllbckImpl implements AsintomaticoCllbckIntOperations
 {       
-        GUICliente GUIC;
+        //GUICliente GUIC;
+        GUICliente2 GUIC;
         
         public ClsAsintomaticoCllbckImpl()
         {
@@ -13,7 +14,12 @@ public class ClsAsintomaticoCllbckImpl implements AsintomaticoCllbckIntOperation
 
         }
         
-        public ClsAsintomaticoCllbckImpl(GUICliente GUIC) 
+//        public ClsAsintomaticoCllbckImpl(GUICliente GUIC) 
+//        {
+//                this.GUIC = GUIC;
+//        }
+        
+        public ClsAsintomaticoCllbckImpl(GUICliente2 GUIC) 
         {
                 this.GUIC = GUIC;
         }

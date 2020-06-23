@@ -21,12 +21,13 @@ public class ConexionBD {
    
     public ConexionBD() {
         con=null;
-        bd="bdempleados";
+        bd="bdasintomaticos";
         login="root";
         password="";
         url = "jdbc:mysql://localhost/"+bd;
     }
-    /**Permite hacer la conexion con la base de datos    
+    /**Permite hacer la conexion con la base de datos
+     * @return 
      */
     public int conectar(){
         try{
@@ -36,10 +37,7 @@ public class ConexionBD {
             // gnera una conexión con la base de datos
              return 1;
         }
-        catch(SQLException e){
-            System.out.println("Error: " + e.getMessage());
-        }
-        catch(Exception e){
+        catch(SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e){
             System.out.println("Error: " + e.getMessage());
         }
         return -1;
@@ -52,12 +50,13 @@ public class ConexionBD {
             con.close();
         }
 
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println("Error " + e.getMessage());
         }
    }
      /**Retorna un objeto que almacena la referencia a la conexion con la base de datos
      *
+     * @return 
      */
     public Connection getConnection(){
       return con;
