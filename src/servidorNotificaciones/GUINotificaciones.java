@@ -5,19 +5,9 @@
  */
 package servidorNotificaciones;
 
-import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
 import servidorAlertas.dao.ClsAlertaDTO;
-import servidorNotificaciones.sop_corba.NotificacionInt;
-import servidorNotificaciones.sop_corba.NotificacionIntPOATie;
-
 
 /**
  *
@@ -25,14 +15,12 @@ import servidorNotificaciones.sop_corba.NotificacionIntPOATie;
  */
 public class GUINotificaciones extends javax.swing.JFrame {
 
-    private CardLayout cardLayout;
     /**
      * Creates new form GUINotificaciones
      */
     DefaultTableModel modeloIndicador, modeloAlertas;
     public GUINotificaciones() {
         initComponents();
-        cardLayout = (CardLayout) (jPanelCardLayout.getLayout());
         modeloIndicador = (DefaultTableModel) jTableIndicadores.getModel();
         modeloAlertas = (DefaultTableModel) jTableAlertas.getModel();
     }
@@ -46,15 +34,6 @@ public class GUINotificaciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelCardLayout = new javax.swing.JPanel();
-        jPanelRegsitroOrb = new javax.swing.JPanel();
-        jLabelIp = new javax.swing.JLabel();
-        jLabelPuerto = new javax.swing.JLabel();
-        jTextFieldIp = new javax.swing.JTextField();
-        jTextFieldPuerto = new javax.swing.JTextField();
-        jButtonRegistrar = new javax.swing.JButton();
-        jButtonSalirRegsitrar = new javax.swing.JButton();
-        jPanelNotificaciones = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -74,62 +53,6 @@ public class GUINotificaciones extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanelCardLayout.setLayout(new java.awt.CardLayout());
-
-        jLabelIp.setText("Ingrese la direccion Ip del orbd");
-
-        jLabelPuerto.setText("Ingrese el puerto de escucha del orbd");
-
-        jButtonRegistrar.setText("Registrar");
-        jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegistrarActionPerformed(evt);
-            }
-        });
-
-        jButtonSalirRegsitrar.setText("Salir");
-
-        javax.swing.GroupLayout jPanelRegsitroOrbLayout = new javax.swing.GroupLayout(jPanelRegsitroOrb);
-        jPanelRegsitroOrb.setLayout(jPanelRegsitroOrbLayout);
-        jPanelRegsitroOrbLayout.setHorizontalGroup(
-            jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRegsitroOrbLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelIp)
-                    .addComponent(jLabelPuerto))
-                .addGap(30, 30, 30)
-                .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldIp)
-                    .addComponent(jTextFieldPuerto))
-                .addContainerGap())
-            .addGroup(jPanelRegsitroOrbLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jButtonRegistrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
-                .addComponent(jButtonSalirRegsitrar)
-                .addGap(55, 55, 55))
-        );
-        jPanelRegsitroOrbLayout.setVerticalGroup(
-            jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRegsitroOrbLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIp)
-                    .addComponent(jTextFieldIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPuerto)
-                    .addComponent(jTextFieldPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
-                .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRegistrar)
-                    .addComponent(jButtonSalirRegsitrar))
-                .addGap(71, 71, 71))
-        );
-
-        jPanelCardLayout.add(jPanelRegsitroOrb, "cardRegistroOrb");
 
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
         jLabel1.setText("No de identificacion:");
@@ -171,164 +94,92 @@ public class GUINotificaciones extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(51, 51, 255));
         jLabel6.setText("Indicadores que generaron la alerta");
 
-        javax.swing.GroupLayout jPanelNotificacionesLayout = new javax.swing.GroupLayout(jPanelNotificaciones);
-        jPanelNotificaciones.setLayout(jPanelNotificacionesLayout);
-        jPanelNotificacionesLayout.setHorizontalGroup(
-            jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
-            .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelNotificacionesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelMensajeTipoAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2)
-                        .addGroup(jPanelNotificacionesLayout.createSequentialGroup()
-                            .addGap(154, 154, 154)
-                            .addComponent(jLabel6))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelNotificacionesLayout.createSequentialGroup()
-                            .addGap(148, 148, 148)
-                            .addComponent(jLabelUlitmasAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelNotificacionesLayout.createSequentialGroup()
-                            .addGap(31, 31, 31)
-                            .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNotificacionesLayout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(43, 43, 43)
-                                    .addComponent(jLabelIdentificacion))
-                                .addGroup(jPanelNotificacionesLayout.createSequentialGroup()
-                                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-                                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelNombresApellidos, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabelHora, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabelDireccion, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabelFecha, javax.swing.GroupLayout.Alignment.TRAILING))))))
-                    .addContainerGap()))
-        );
-        jPanelNotificacionesLayout.setVerticalGroup(
-            jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-            .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelNotificacionesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabelIdentificacion))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabelNombresApellidos))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabelDireccion))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabelHora))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabelFecha))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabelMensajeTipoAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabelUlitmasAlertas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-        );
-
-        jPanelCardLayout.add(jPanelNotificaciones, "cardNotificaciones");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanelCardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(154, 154, 154)
+                            .addComponent(jLabel6)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(148, 148, 148)
+                            .addComponent(jLabelUlitmasAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelMensajeTipoAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelHora))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelDireccion))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelNombresApellidos))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(43, 43, 43)
+                                    .addComponent(jLabelIdentificacion)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelFecha)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addComponent(jPanelCardLayout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelIdentificacion))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelNombresApellidos))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelDireccion))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabelHora))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabelFecha))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelMensajeTipoAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelUlitmasAlertas, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
-        // TODO add your handling code here:
-        String[] vec = new String[4];
-        vec[0] = "-ORBInitialPort";
-        vec[1] = jTextFieldIp.getText();
-        vec[2] = "-ORBInitialPort";
-        vec[3] = jTextFieldPuerto.getText();
-        registrarOrb(vec);
-        cardLayout.show(jPanelCardLayout, "cardNotificaciones");
-    }//GEN-LAST:event_jButtonRegistrarActionPerformed
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUINotificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUINotificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUINotificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUINotificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        
-        String vec[];
-        if(args.length == 4)
-            registrarOrb(args);
-        else
-            if(args.length == 2){
-                vec = new String[4];               
-                vec[0] = "-ORBInitialHost";
-                vec[1] = args[0];
-                vec[2] = "-ORBInitialPort";
-                vec[3] = args[1];  
-                registrarOrb(vec);
-            }
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUINotificaciones().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonRegistrar;
-    private javax.swing.JButton jButtonSalirRegsitrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -339,20 +190,13 @@ public class GUINotificaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelIdentificacion;
-    private javax.swing.JLabel jLabelIp;
     private javax.swing.JLabel jLabelMensajeTipoAlerta;
     private javax.swing.JLabel jLabelNombresApellidos;
-    private javax.swing.JLabel jLabelPuerto;
     private javax.swing.JLabel jLabelUlitmasAlertas;
-    private javax.swing.JPanel jPanelCardLayout;
-    private javax.swing.JPanel jPanelNotificaciones;
-    private javax.swing.JPanel jPanelRegsitroOrb;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableAlertas;
     private javax.swing.JTable jTableIndicadores;
-    private javax.swing.JTextField jTextFieldIp;
-    private javax.swing.JTextField jTextFieldPuerto;
     // End of variables declaration//GEN-END:variables
 
 public void fijarAsintomatico(String tipo_id, int id, String nombre, String apellidos, String direccion){
@@ -373,12 +217,12 @@ public void fijarMensajeTipoAlerta(String mensaje){
     
     jLabelMensajeTipoAlerta.setText(mensaje);
 }
-public synchronized void fijarAlerta(ArrayList<ClsAlertaDTO> asintomaticosDAO){
+public synchronized void fijarAlerta(ArrayList<ClsAlertaDTO> alertasDTO){
     limpiarAlertas();
-    int indice = asintomaticosDAO.size() - 1;
+    int indice = alertasDTO.size() - 1;
     int i = 0;
     while(indice >= 0 && i < 5){
-        modeloAlertas.addRow(new Object[] {asintomaticosDAO.get(i).getFechaAlerta(),asintomaticosDAO.get(i).getHoraAlerta(),asintomaticosDAO.get(i).getPuntuacion()});
+        modeloAlertas.addRow(new Object[] {alertasDTO.get(i).getFechaAlerta(),alertasDTO.get(i).getHoraAlerta(),alertasDTO.get(i).getPuntuacion()});
         indice--;
         i++;
     }
@@ -398,58 +242,5 @@ public void limpiarAlertas(){
     public void fijarHoraFecha(String fecha, String hora) {
         jLabelHora.setText(hora);
         jLabelFecha.setText(fecha);
-    }
-    
-    private static void registrarOrb(String []vec){
-        try{
-            // crea e iniciia el ORB
-            ORB orb = ORB.init(vec, null);
-
-            // obtiene la referencia del rootpoa & activate el POAManager
-            POA rootpoa = 
-            POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-            rootpoa.the_POAManager().activate();
-
-            // crea el servant y lo registra con el ORB
-            ClsNotificacionImpl convref = new ClsNotificacionImpl();
-
-            // obtiene la referencia del objeto desde el servant
-            //org.omg.CORBA.Object obj = 
-            //rootpoa.servant_to_reference(convref);
-            //Count href = CountHelper.narrow(obj);
-
-            //*** crea un tie, con el servant como delegado***
-            NotificacionIntPOATie gptie= new NotificacionIntPOATie(convref);
-
-            //*** Obtener la referencia para el tie
-            NotificacionInt reftie=gptie._this(orb);
-
-
-            // obtiene la base del contexto de nombrado
-            org.omg.CORBA.Object objref =
-                orb.resolve_initial_references("NameService");
-            // Usa NamingContextExt el cual es parte de la especificacion 
-            // Naming Service (INS).
-            NamingContextExt ncref = NamingContextExtHelper.narrow(objref);
-
-
-
-            // Realiza el binding de la referencia de objeto en el N_S
-            String name = "objNotificaciones";
-            NameComponent path[] = ncref.to_name( name );
-            ncref.rebind(path, reftie);
-
-            System.out.println("El Servidor esta listo y esperando ...");
-
-            // esperan por las invocaciones desde los clientes
-            orb.run();
-        } 
-
-        catch (Exception e) {
-            System.err.println("ERROR: " + e);
-            e.printStackTrace(System.out);
-        }
-
-          System.out.println("HelloServer: Saliendo ...");        
     }
 }

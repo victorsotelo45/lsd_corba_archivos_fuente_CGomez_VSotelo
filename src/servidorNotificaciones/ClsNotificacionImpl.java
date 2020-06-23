@@ -10,6 +10,7 @@ import servidorNotificaciones.sop_corba.NotificacionIntPackage.ClsMensajeNotific
 import java.applet.AudioClip;
 import servidorAlertas.sop_corba.ClsAsintomaticoDTO;
 import servidorNotificaciones.sop_corba.NotificacionIntOperations;
+import servidorAlertas.dao.ClslAlertaDAOImpl;
 
 
 public class ClsNotificacionImpl implements NotificacionIntOperations{
@@ -25,7 +26,6 @@ public class ClsNotificacionImpl implements NotificacionIntOperations{
         System.out.println("Desde notificarRegistro()...");
      
         ClsAsintomaticoDTO pacienteAsintomatico = objMensajeNotificacion.pacienteAsintomatico;
-        ArrayList<ClsAlertaDTO> pacientesDAO;
         int frecuanciaCardiaca, frecuenciaRespiratoria;
         float temperatura;
         
@@ -75,10 +75,8 @@ public class ClsNotificacionImpl implements NotificacionIntOperations{
         AudioClip sonido;
         sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/alerta.wav"));
         sonido.play();
-        //System.out.println("El personal medico debe revisar el paciente");
-        //AsintomaticoDAOInt objetoAsintomaticoDAO = new ClsAsintomaticoDAOImpl();
-        //pacientesDAO = objetoAsintomaticoDAO.leerHistorialAsintomatico(pacienteAsintomatico.id);
-        //GUI.fijarAlerta(pacientesDAO);
+        ClslAlertaDAOImpl alerta = new ClslAlertaDAOImpl();
+        GUI.fijarAlerta(alerta.consultarUltimas5Alertas(pacienteAsintomatico.id));
         
         System.out.println("Saliendo de notificarRegistro()...");
         

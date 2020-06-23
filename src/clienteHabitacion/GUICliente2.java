@@ -50,6 +50,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
      */    
     public GUICliente2() {
         initComponents();
+        setLocationRelativeTo(null);
         cardLayout = (CardLayout) (jPanelCardLayout.getLayout());
         if (!estaRegistradoNS)
             cardLayout.show(jPanelCardLayout, "cardRegistroOrb");
@@ -82,7 +83,9 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         jTextFieldId = new javax.swing.JTextField();
         jButtonRegistrarPaciente = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
-        jButtonEliminar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jLabelNota = new javax.swing.JLabel();
+        jLabelNotaDescripcion = new javax.swing.JLabel();
         jPanelIndicadores = new javax.swing.JPanel();
         jButtonEnviar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -171,9 +174,24 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
 
         jButtonModificar.setText("Modificar");
         jButtonModificar.setEnabled(false);
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
 
-        jButtonEliminar.setText("Eliminar");
-        jButtonEliminar.setEnabled(false);
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabelNota.setForeground(new java.awt.Color(0, 0, 255));
+        jLabelNota.setText("Nota:");
+
+        jLabelNotaDescripcion.setText("<html>Digite un numero de identificacion y presione la tecla enter. El sistema automaticamente verifica si el paciente es existente o si es un nuevo registro y habilita sus correspondientes opciones. Presionar cancelar si desea cambiar el numero de identificacion.");
 
         javax.swing.GroupLayout jPanelRegistrarLayout = new javax.swing.GroupLayout(jPanelRegistrar);
         jPanelRegistrar.setLayout(jPanelRegistrarLayout);
@@ -182,18 +200,6 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabelApellido)
-                        .addGap(90, 90, 90)
-                        .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelDireccion)
-                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
@@ -201,12 +207,17 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                                 .addComponent(jButtonModificar))
                             .addComponent(jButtonRegistrarPaciente))
                         .addGap(1, 1, 1)
-                        .addComponent(jButtonEliminar)
+                        .addComponent(jButtonCancelar)
                         .addGap(10, 10, 10)
                         .addComponent(jButtonSalir))
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(32, 32, 32)
                         .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addComponent(jLabelApellido)
+                                .addGap(90, 90, 90)
+                                .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelDireccion)
                             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
@@ -223,14 +234,26 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                                 .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelId)
                             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addComponent(jLabelNota)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelNotaDescripcion))
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                                 .addGap(147, 147, 147)
-                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(33, 33, 33))
+                                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(34, 34, 34))
         );
         jPanelRegistrarLayout.setVerticalGroup(
             jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRegistrarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addComponent(jLabelNota)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelNotaDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelId)
                     .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,12 +281,13 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                         .addGap(4, 4, 4)
                         .addComponent(jLabelDireccion))
                     .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonRegistrarPaciente)
-                    .addComponent(jButtonEliminar)
-                    .addComponent(jButtonSalir)))
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonSalir))
+                .addContainerGap())
         );
 
         jPanelCardLayout.add(jPanelRegistrar, "cardRegistrar");
@@ -326,6 +350,11 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         });
 
         jButtonSalirRegsitrar.setText("Salir");
+        jButtonSalirRegsitrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirRegsitrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelRegsitroOrbLayout = new javax.swing.GroupLayout(jPanelRegsitroOrb);
         jPanelRegsitroOrb.setLayout(jPanelRegsitroOrbLayout);
@@ -483,7 +512,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         // TODO add your handling code here:
                 // se crea e inicia el ORB
         String[] vec = new String [4];
-        vec[0] = "-ORBInitialPort";
+        vec[0] = "-ORBInitialHost";
         vec[1] = jTextFieldIp.getText();
         vec[2] = "-ORBInitialPort";
         vec[3] = jTextFieldPuerto.getText();
@@ -563,20 +592,99 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                     jTextFieldNombres.setText(paciente.nombres);
                     jTextFieldApellidos.setText(paciente.apellidos);
                     jTextFieldDireccion.setText(paciente.direccion);
+                    jRadioButtonCC.setEnabled(true);
+                    jRadioButtonTI.setEnabled(true);
+                    jRadioButtonPP.setEnabled(true);
+                    jTextFieldNombres.setEnabled(true);
+                    jTextFieldApellidos.setEnabled(true);
+                    jTextFieldDireccion.setEnabled(true);
                     jButtonModificar.setEnabled(true);
-                    jButtonEliminar.setEnabled(true);
+                    jButtonCancelar.setEnabled(true);
+                    jTextFieldId.setEnabled(false);
                 }                    
             }else{
                 jButtonRegistrarPaciente.setEnabled(true);
+                jRadioButtonCC.setEnabled(true);
+                jRadioButtonTI.setEnabled(true);
+                jRadioButtonPP.setEnabled(true);
+                jTextFieldNombres.setEnabled(true);
+                jTextFieldApellidos.setEnabled(true);
+                jTextFieldDireccion.setEnabled(true);
+                jButtonCancelar.setEnabled(true);
+                jTextFieldId.setEnabled(false);
             }
-            jRadioButtonCC.setEnabled(true);
-            jRadioButtonTI.setEnabled(true);
-            jRadioButtonPP.setEnabled(true);
-            jTextFieldNombres.setEnabled(true);
-            jTextFieldApellidos.setEnabled(true);
-            jTextFieldDireccion.setEnabled(true);
+
         }
     }//GEN-LAST:event_jTextFieldIdKeyPressed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        String tipo_id="";
+
+        if((!jRadioButtonCC.isSelected() && !jRadioButtonTI.isSelected() && !jRadioButtonPP.isSelected()) ||
+            jTextFieldId.getText().isEmpty() || jTextFieldNombres.getText().isEmpty() ||
+            jTextFieldApellidos.getText().isEmpty() || jTextFieldDireccion.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Datos requeridos no deben estar vacios!!!");
+        }else
+        {
+            if(jRadioButtonCC.isSelected())
+            tipo_id = "CC";
+            if(jRadioButtonTI.isSelected())
+            tipo_id = "TI";
+            if(jRadioButtonPP.isSelected())
+            tipo_id = "PP";
+
+            try
+            {
+                POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+                rootPOA.the_POAManager().activate();
+                // instancia el servant
+                ClsAsintomaticoCllbckImpl objAsintomaticoCllbck = new ClsAsintomaticoCllbckImpl(this);
+                // obtiene la referencia del rootpoa & activate el POAManager
+                //*** crea un tie, con el servant como delegado***
+                AsintomaticoCllbckIntPOATie gptie= new AsintomaticoCllbckIntPOATie(objAsintomaticoCllbck);
+
+                //*** Obtener la referencia para el tie
+                AsintomaticoCllbckInt reftie=gptie._this(orb);
+
+                paciente = new ClsAsintomaticoDTO(jTextFieldNombres.getText(),jTextFieldApellidos.getText(),tipo_id, Integer.parseInt(jTextFieldId.getText()), jTextFieldDireccion.getText(),reftie);
+
+                if(ref.registrarAsintomatico(paciente) ){ 
+                    cardLayout.show(jPanelCardLayout, "cardIndicadores");
+                    JOptionPane.showMessageDialog(null, "Se registro paciente exitosamente!!!");
+                    //limpiarPanelRegistrar();
+                    //jButtonConsultar.setEnabled(true);
+                    //jButtonEnviarIndicadores.setEnabled(true);
+                }else
+                JOptionPane.showMessageDialog(null, "No se registro el paciente!!!");
+
+            }catch (HeadlessException | NumberFormatException | InvalidName | AdapterInactive e) {
+                System.out.println("ERROR : " + e) ;
+                e.printStackTrace(System.out);
+            }
+        }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiarPanelRegistrar();
+        jTextFieldId.setEnabled(true);
+        jRadioButtonCC.setEnabled(false);
+        jRadioButtonTI.setEnabled(false);
+        jRadioButtonPP.setEnabled(false);
+        jTextFieldNombres.setEnabled(false);
+        jTextFieldApellidos.setEnabled(false);
+        jTextFieldDireccion.setEnabled(false);
+        jButtonRegistrarPaciente.setEnabled(false);
+        jButtonModificar.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonSalirRegsitrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirRegsitrarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonSalirRegsitrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -628,8 +736,8 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipo;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonDetener;
-    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonEnviar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonRegistrar;
@@ -641,6 +749,8 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelIp;
     private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelNota;
+    private javax.swing.JLabel jLabelNotaDescripcion;
     private javax.swing.JLabel jLabelPuerto;
     private javax.swing.JLabel jLabelTipoId;
     private javax.swing.JPanel jPanelCardLayout;
