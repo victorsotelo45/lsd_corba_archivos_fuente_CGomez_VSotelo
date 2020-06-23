@@ -117,29 +117,35 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
 
         buttonGroupTipo.add(jRadioButtonCC);
         jRadioButtonCC.setText("CC");
+        jRadioButtonCC.setEnabled(false);
 
         buttonGroupTipo.add(jRadioButtonTI);
         jRadioButtonTI.setText("TI");
+        jRadioButtonTI.setEnabled(false);
 
         buttonGroupTipo.add(jRadioButtonPP);
         jRadioButtonPP.setText("PP");
+        jRadioButtonPP.setEnabled(false);
 
         jLabelApellido.setText("Apellido");
 
         jLabelDireccion.setText("Direccion de domicilio");
 
+        jTextFieldNombres.setEnabled(false);
         jTextFieldNombres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNombresKeyTyped(evt);
             }
         });
 
+        jTextFieldApellidos.setEnabled(false);
         jTextFieldApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldApellidosKeyTyped(evt);
             }
         });
 
+        jTextFieldDireccion.setEnabled(false);
         jTextFieldDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDireccionKeyTyped(evt);
@@ -147,12 +153,16 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         });
 
         jTextFieldId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldIdKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldIdKeyTyped(evt);
             }
         });
 
         jButtonRegistrarPaciente.setText("Registrar");
+        jButtonRegistrarPaciente.setEnabled(false);
         jButtonRegistrarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarPacienteActionPerformed(evt);
@@ -160,74 +170,77 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         });
 
         jButtonModificar.setText("Modificar");
+        jButtonModificar.setEnabled(false);
 
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setEnabled(false);
 
         javax.swing.GroupLayout jPanelRegistrarLayout = new javax.swing.GroupLayout(jPanelRegistrar);
         jPanelRegistrar.setLayout(jPanelRegistrarLayout);
         jPanelRegistrarLayout.setHorizontalGroup(
             jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jRadioButtonCC))
-                    .addComponent(jLabelTipoId))
-                .addGap(17, 17, 17)
-                .addComponent(jRadioButtonTI)
-                .addGap(13, 13, 13)
-                .addComponent(jRadioButtonPP))
-            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelId)
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabelNombre)
-                .addGap(92, 92, 92)
-                .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabelApellido)
-                .addGap(90, 90, 90)
-                .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDireccion)
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabelApellido)
                         .addGap(90, 90, 90)
-                        .addComponent(jButtonModificar))
-                    .addComponent(jButtonRegistrarPaciente))
-                .addGap(1, 1, 1)
-                .addComponent(jButtonEliminar)
-                .addGap(10, 10, 10)
-                .addComponent(jButtonSalir))
+                        .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelDireccion)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(jButtonModificar))
+                            .addComponent(jButtonRegistrarPaciente))
+                        .addGap(1, 1, 1)
+                        .addComponent(jButtonEliminar)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonSalir))
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                        .addGap(130, 130, 130)
+                                        .addComponent(jRadioButtonCC))
+                                    .addComponent(jLabelTipoId))
+                                .addGap(17, 17, 17)
+                                .addComponent(jRadioButtonTI)
+                                .addGap(13, 13, 13)
+                                .addComponent(jRadioButtonPP))
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addComponent(jLabelNombre)
+                                .addGap(92, 92, 92)
+                                .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelId)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(33, 33, 33))
         );
         jPanelRegistrarLayout.setVerticalGroup(
             jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(25, 25, 25)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelId)
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonCC)
                     .addComponent(jLabelTipoId)
                     .addComponent(jRadioButtonTI)
                     .addComponent(jRadioButtonPP))
-                .addGap(17, 17, 17)
-                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelId)
-                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGap(26, 26, 26)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNombre)
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
@@ -436,7 +449,8 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         // TODO add your handling code here:
         int longitudCadena = 0;
         char c = evt.getKeyChar();
-        if((c < '0' || c > '9') && (c!= KeyEvent.VK_BACK_SPACE))
+        
+        if((c < '0' || c > '9') && (c!= KeyEvent.VK_BACK_SPACE) && evt.getKeyCode() == KeyEvent.VK_ENTER)
         {   evt.consume();
             getToolkit().beep();
             JOptionPane.showMessageDialog(null,"Ingrese solo numeros!!!");
@@ -449,7 +463,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
             getToolkit().beep();
             JOptionPane.showMessageDialog(null,"El id del paciente debe estar entre 0 y 99999!!!");
         }
-
+        
     }//GEN-LAST:event_jTextFieldIdKeyTyped
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
@@ -529,6 +543,40 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
             }
         }
     }//GEN-LAST:event_jButtonRegistrarPacienteActionPerformed
+
+    private void jTextFieldIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            ClsAsintomaticoDTO paciente = ref.consultarAsintomatico(Integer.parseInt(jTextFieldId.getText()));
+            if(paciente.id !=-1)
+            {
+                if(JOptionPane.showConfirmDialog(null, "El paciente con id "+paciente.id+" ya existe.\n¿Desea modificar o eliminar?", "Alerta!", JOptionPane.YES_NO_OPTION) == 0){
+                    if(paciente.tipo_id.equals("CC"))
+                        jRadioButtonCC.setSelected(true);
+                    else{
+                        if(paciente.tipo_id.equals("TI"))
+                            jRadioButtonTI.setSelected(true);
+                        else
+                            jRadioButtonPP.setSelected(true);
+                    }
+                    jTextFieldId.setText(paciente.id+"");
+                    jTextFieldNombres.setText(paciente.nombres);
+                    jTextFieldApellidos.setText(paciente.apellidos);
+                    jTextFieldDireccion.setText(paciente.direccion);
+                    jButtonModificar.setEnabled(true);
+                    jButtonEliminar.setEnabled(true);
+                }                    
+            }else{
+                jButtonRegistrarPaciente.setEnabled(true);
+            }
+            jRadioButtonCC.setEnabled(true);
+            jRadioButtonTI.setEnabled(true);
+            jRadioButtonPP.setEnabled(true);
+            jTextFieldNombres.setEnabled(true);
+            jTextFieldApellidos.setEnabled(true);
+            jTextFieldDireccion.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextFieldIdKeyPressed
 
     /**
      * @param args the command line arguments
