@@ -14,12 +14,12 @@ import java.util.ArrayList;
  *
  * @author cesarluis
  */
-public class ClslAlertaDAOImpl implements AlertaDAOInt{
+public class ClsAlertaDAOImpl implements AlertaDAOInt{
 
     
     private final ConexionBD conexionABaseDeDatos;
     
-    public ClslAlertaDAOImpl()
+    public ClsAlertaDAOImpl()
     {
         conexionABaseDeDatos= new ConexionBD();
     }
@@ -58,7 +58,7 @@ public class ClslAlertaDAOImpl implements AlertaDAOInt{
         conexionABaseDeDatos.conectar();        
         try {            
             PreparedStatement sentencia = null;
-            String consulta = "select * from alerta where alerta.id_asintomatico=? order by fecha_alerta asc, hora_alerta asc limit 5";
+            String consulta = "select * from alerta where alerta.id_asintomatico=? order by alerta.fecha_alerta desc, alerta.hora_alerta desc limit 5";
             sentencia = conexionABaseDeDatos.getConnection().prepareStatement(consulta);  
             sentencia.setInt(1, idAsintomatico);
             ResultSet res = sentencia.executeQuery();

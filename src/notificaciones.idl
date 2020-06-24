@@ -1,22 +1,18 @@
 module servidorNotificaciones{
 	module sop_corba{
 	    interface NotificacionInt{
-		struct ClsAsintomaticoDTO{
-			     string nombres;
-		  	     string apellidos;
-			     string tipo_id;
-			     long id;
-			     string direccion;
-		};
-
 		struct ClsMensajeNotificacionDTO{
-			  ClsAsintomaticoDTO pacienteAsintomatico;
-		       	  long frecuenciaCardiaca;
-			  long frecuenciaRespiratoria;
-		      	  float temperatura;
-			  string fechaAlerta;
-			  string horaAlerta;
-			  string mensaje;
+			 string nombres;
+		  	 string apellidos;
+			 string tipo_id;
+			 long id;
+			 string direccion;	
+		       	 long frecuenciaCardiaca;
+			 long frecuenciaRespiratoria;
+		      	 float temperatura;
+			 string fechaAlerta;
+			 string horaAlerta;
+			 string mensaje;
 		};
 
 	

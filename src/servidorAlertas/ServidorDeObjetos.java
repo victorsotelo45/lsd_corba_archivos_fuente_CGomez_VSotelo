@@ -20,7 +20,6 @@ import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import servidorAlertas.sop_corba.GestionAsintomaticosInt;
 import servidorAlertas.sop_corba.GestionAsintomaticosIntPOATie;
-import servidorAlertas.utilidades.UtilidadesConsola;
 
 
 public class ServidorDeObjetos extends JFrame{

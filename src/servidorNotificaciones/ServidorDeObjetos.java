@@ -43,6 +43,7 @@ public ServidorDeObjetos(){
             }
     if(!estaRegistrado)
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ServidorDeObjetos().setVisible(true);
             }
@@ -92,6 +93,7 @@ public ServidorDeObjetos(){
 
             // esperan por las invocaciones desde los clientes
             java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
                 public void run() {
                     orb.run();
                 }

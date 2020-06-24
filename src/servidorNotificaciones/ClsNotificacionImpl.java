@@ -1,16 +1,11 @@
 
 package servidorNotificaciones;
 
-//import servidorAlertas.dao.ClsAsintomaticoDAOImpl;
-import java.util.ArrayList;
 import java.util.HashMap;
-//import servidorAlertas.dao.AsintomaticoDAOInt;
-import servidorAlertas.dao.ClsAlertaDTO;
 import servidorNotificaciones.sop_corba.NotificacionIntPackage.ClsMensajeNotificacionDTO;
 import java.applet.AudioClip;
-import servidorAlertas.sop_corba.ClsAsintomaticoDTO;
 import servidorNotificaciones.sop_corba.NotificacionIntOperations;
-import servidorAlertas.dao.ClslAlertaDAOImpl;
+import servidorAlertas.dao.ClsAlertaDAOImpl;
 
 
 public class ClsNotificacionImpl implements NotificacionIntOperations{
@@ -25,31 +20,32 @@ public class ClsNotificacionImpl implements NotificacionIntOperations{
         
         System.out.println("Desde notificarRegistro()...");
      
-        ClsAsintomaticoDTO pacienteAsintomatico = objMensajeNotificacion.pacienteAsintomatico;
-        int frecuanciaCardiaca, frecuenciaRespiratoria;
+        int id, frecuanciaCardiaca, frecuenciaRespiratoria;
         float temperatura;
+        String nombres, apellidos, tipo_id, direccion;
         
-        /*System.out.println("Alerta Generada");
-        System.out.println("Id: "+pacienteAsintomatico.getId());
-        System.out.println("Nombres: "+pacienteAsintomatico.getNombres());
-        System.out.println("Apellidos: "+pacienteAsintomatico.getApellidos());
-        System.out.println("Direccion: "+pacienteAsintomatico.getDireccion());*/
+        id = objMensajeNotificacion.id;
+        nombres = objMensajeNotificacion.nombres;
+        apellidos = objMensajeNotificacion.apellidos;
+        tipo_id = objMensajeNotificacion.tipo_id;
+        direccion = objMensajeNotificacion.direccion;
+        
+        
         //Para cada paciente se crea un GUI
         GUINotificaciones GUI;
-        if(GUIAsintomaticos.containsKey(pacienteAsintomatico.id)){
-            GUI = GUIAsintomaticos.get(pacienteAsintomatico.id); 
+        if(GUIAsintomaticos.containsKey(id)){
+            GUI = GUIAsintomaticos.get(id); 
             GUI.limpiarIndicadores();
-            //GUI.limpiarAlertas();
+            GUI.limpiarAlertas();
         }else{
             GUI = new GUINotificaciones();
-            GUIAsintomaticos.put(pacienteAsintomatico.id, GUI);
+            GUIAsintomaticos.put(id, GUI);
         }
             
         if(!GUI.isVisible())
             GUI.setVisible(true);
         //Enviar al GUI los datos del paciente
-        GUI.fijarAsintomatico(pacienteAsintomatico.tipo_id,pacienteAsintomatico.id,pacienteAsintomatico.nombres,
-        pacienteAsintomatico.apellidos, pacienteAsintomatico.direccion);
+        GUI.fijarAsintomatico(tipo_id,id,nombres,apellidos,direccion);
         frecuanciaCardiaca = objMensajeNotificacion.frecuenciaCardiaca;
         frecuenciaRespiratoria = objMensajeNotificacion.frecuenciaRespiratoria;
         temperatura = objMensajeNotificacion.temperatura;
@@ -87,8 +83,8 @@ public class ClsNotificacionImpl implements NotificacionIntOperations{
         AudioClip sonido;
         sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/alerta.wav"));
         sonido.play();
-        ClslAlertaDAOImpl alerta = new ClslAlertaDAOImpl();
-        GUI.fijarAlerta(alerta.consultarUltimas5Alertas(pacienteAsintomatico.id));
+        ClsAlertaDAOImpl alerta = new ClsAlertaDAOImpl();
+        GUI.fijarAlerta(alerta.consultarUltimas5Alertas(id));
         
         System.out.println("Saliendo de notificarRegistro()...");
         

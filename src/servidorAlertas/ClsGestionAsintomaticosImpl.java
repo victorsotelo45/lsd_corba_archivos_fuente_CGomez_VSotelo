@@ -1,7 +1,6 @@
 
 package servidorAlertas;
 
-//import servidorAlertas.dao.ClsAsintomaticoDAOImpl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +15,7 @@ import servidorAlertas.dao.AlertaDAOInt;
 import servidorAlertas.dao.AsintomaticoDAOInt;
 import servidorAlertas.dao.ClsAlertaDTO;
 import servidorAlertas.dao.ClsAsintomaticoDAOImpl;
-import servidorAlertas.dao.ClslAlertaDAOImpl;
-import servidorAlertas.dao.ConexionBD;
+import servidorAlertas.dao.ClsAlertaDAOImpl;
 import servidorAlertas.sop_corba.ClsAsintomaticoDTO;
 import servidorAlertas.sop_corba.GestionAsintomaticosIntOperations;
 import servidorNotificaciones.sop_corba.NotificacionInt;
@@ -28,7 +26,7 @@ import servidorNotificaciones.sop_corba.NotificacionIntPackage.ClsMensajeNotific
 public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOperations {
 
     
-    private static NotificacionInt objetoRefServidorNotificaciones;
+    private static NotificacionInt RefNotificaciones;
     private ArrayList<ClsAsintomaticoDTO> asintomaticos;
     private int numeroPacientes;
 
@@ -47,7 +45,8 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
 
             // *** Resuelve la referencia del objeto en el N_S ***
             String name = "objNotificaciones";
-            objetoRefServidorNotificaciones = NotificacionIntHelper.narrow(ncRef.resolve_str(name));
+            RefNotificaciones = NotificacionIntHelper.narrow(ncRef.resolve_str(name));
+            //System.out.println("Obtenido el manejador sobre el servidor de objetos: " + RefNotificaciones);
 
             }catch(InvalidName | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName | NotFound e)
             {
@@ -72,7 +71,6 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
         System.out.println("Desde registrarAsintomatico()...");
         int id = objAsintomaticoCllbck.id;
         AsintomaticoDAOInt objAsintomaticoDAO = new ClsAsintomaticoDAOImpl();
-        ConexionBD objConexionBD = new ConexionBD();
         ClsAsintomaticoDTO pacienteAsintomatico = consultarAsintomatico(id);
         boolean  bandera = false;
         if(pacienteAsintomatico.id == -1)       
@@ -120,7 +118,7 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
     public boolean enviarIndicadores(int id, int frecuenciaCardiaca, int frecuenciaRespiratoria,float temperatura){
             
         System.out.println("Desde enviarIndicadores()...");
-        String nombres, apellidos, tipo_id, mensaje;
+        String nombres, apellidos, tipo_id, direccion, mensaje;
         String fechaAlerta, horaAlerta, strDateFormatFecha, strDateFormatHora;
         Date fechaActual;
         SimpleDateFormat objSDF;
@@ -136,7 +134,7 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
         int puntuacionFrecCardiaca = 0, puntuacionFrecRespiratoria = 0, puntuacionTemperatura = 0;
         AlertaDAOInt objAlertaDAOInt;  
         ClsAlertaDTO objAlerta;
-        //ClsMensajeNotificacionDTO objMensajeNotificacion;
+        ClsMensajeNotificacionDTO objMensajeNotificacion;
                 
         ClsAsintomaticoDTO objAsintomaticoCllbck = consultarAsintomatico(id);
         if(objAsintomaticoCllbck.id != -1)
@@ -160,9 +158,10 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
             nombres = objAsintomaticoCllbck.nombres;
             apellidos = objAsintomaticoCllbck.apellidos;
             tipo_id = objAsintomaticoCllbck.tipo_id;
+            direccion = objAsintomaticoCllbck.direccion;
             
             
-            objAlertaDAOInt = new ClslAlertaDAOImpl();
+            objAlertaDAOInt = new ClsAlertaDAOImpl();
             
             if(puntuacionIndicadores == 0 || puntuacionIndicadores == 1)
             {
@@ -172,7 +171,6 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
             
             if(puntuacionIndicadores == 2)
             {
-                //objetoAsintomaticoDAO.escribirHistorialAsintomatico(pacienteAsintomatico, fechaAlerta, horaAlerta, puntuacionIndicadores);
                 mensaje = "Alerta, el personal médico debe visitar al paciente "+nombres+" "+apellidos+" identificado con ["+tipo_id+"]["+id+"]!!!";
                 objAsintomaticoCllbck.objAsintomaticoCllbck.notificarMensajeCllbck(mensaje);
                 if(puntuacionFrecCardiaca == 0) frecuenciaCardiaca = 0;
@@ -183,20 +181,19 @@ public class ClsGestionAsintomaticosImpl implements GestionAsintomaticosIntOpera
                 objAlertaDAOInt.registrarAlerta(objAlerta);
                 objAlertaDAOInt.registrarAlerta(objAlerta);
                 
-                //objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
-                //objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
+                objMensajeNotificacion = new ClsMensajeNotificacionDTO(nombres, apellidos, tipo_id, id, direccion,frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
+                RefNotificaciones.notificarRegistro(objMensajeNotificacion);
             }
             
             if(puntuacionIndicadores >= 3)
             {   
-                //objetoAsintomaticoDAO.escribirHistorialAsintomatico(pacienteAsintomatico, fechaAlerta, horaAlerta, puntuacionIndicadores);
                 mensaje = "Alerta, el personal médico debe remitir el paciente "+nombres+" "+apellidos+" identificado con ["+tipo_id+"]["+id+"] al hospital!!!";
                 objAsintomaticoCllbck.objAsintomaticoCllbck.notificarMensajeCllbck(mensaje);
                 objAlerta = new ClsAlertaDTO(id, fechaAlerta, horaAlerta, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, puntuacionIndicadores);
                 objAlertaDAOInt.registrarAlerta(objAlerta);
                 objAlertaDAOInt.registrarAlerta(objAlerta);
-                //objMensajeNotificacion = new ClsMensajeNotificacionDTO(objAsintomaticoCllbck, frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
-                //objetoRefServidorNotificaciones.notificarRegistro(objMensajeNotificacion);
+                objMensajeNotificacion = new ClsMensajeNotificacionDTO(nombres, apellidos, tipo_id, id, direccion,frecuenciaCardiaca, frecuenciaRespiratoria, temperatura, fechaAlerta, horaAlerta, mensaje);
+                RefNotificaciones.notificarRegistro(objMensajeNotificacion);
             }
                
             bandera = true;
