@@ -55,22 +55,34 @@ public class ClsNotificacionImpl implements NotificacionIntOperations{
         temperatura = objMensajeNotificacion.temperatura;
         //System.out.println("Indicadores que generaron la Alerta:");
         //Enviar al GUI los indicadores
-        if(frecuanciaCardiaca != 0)
+        int cont = 0;
+        if(frecuanciaCardiaca != 0){
             //System.out.println("Frecuencia Cardiaca: "+frecuanciaCardiaca);
             GUI.fijarFrecuenciaCardiaca(frecuanciaCardiaca);
-        if(frecuenciaRespiratoria != 0)
+            cont++;
+        }
+        if(frecuenciaRespiratoria != 0){
             //System.out.println("Frecuencia Respiratoria: "+frecuenciaRespiratoria);
             GUI.fijarFrecuenciaRespiratoria(frecuenciaRespiratoria);
-        if(temperatura != 0)
+            cont++;
+        }
+        if(temperatura != 0){
             //System.out.println("Temperatura: "+temperatura);
             GUI.fijarTemperatura(temperatura);
+            cont++;
+        }
 
         String fecha = objMensajeNotificacion.fechaAlerta;
         String hora = objMensajeNotificacion.horaAlerta;
         GUI.fijarHoraFecha(hora, fecha);
         //Enviar al GUI el mensaje del tipo de alerta
         String mensaje = objMensajeNotificacion.mensaje;
-        
+        if(cont==2){
+            GUI.setImagen(1);
+        }else{
+            GUI.setImagen(2);
+        }
+            
         GUI.fijarMensajeTipoAlerta(mensaje);
         AudioClip sonido;
         sonido = java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/alerta.wav"));

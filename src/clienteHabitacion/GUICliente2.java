@@ -7,11 +7,16 @@ package clienteHabitacion;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -44,12 +49,16 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private static boolean estaRegistradoNS;
     public static ORB orb;
     boolean stop;
-    
+    FondoPanel fondo = new FondoPanel();
     /**
      * Creates new form GUICliente
      */    
     public GUICliente2() {
+        this.setContentPane(fondo);
         initComponents();
+        ImageIcon imagenDoctor = new ImageIcon(getClass().getResource("/imagenes/doctor.png"));
+        Icon fondoDoctor = new ImageIcon(imagenDoctor.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+        jLabelImagen.setIcon(fondoDoctor);
         setLocationRelativeTo(null);
         cardLayout = (CardLayout) (jPanelCardLayout.getLayout());
         if (!estaRegistradoNS)
@@ -67,7 +76,8 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
 
         buttonGroupTipo = new javax.swing.ButtonGroup();
         jPanelCardLayout = new javax.swing.JPanel();
-        jPanelRegistrar = new javax.swing.JPanel();
+        jPanelRegistrar = new FondoPanel();
+        jLabelImagen = new javax.swing.JLabel();
         jLabelTipoId = new javax.swing.JLabel();
         jLabelId = new javax.swing.JLabel();
         jLabelNombre = new javax.swing.JLabel();
@@ -86,7 +96,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         jButtonCancelar = new javax.swing.JButton();
         jLabelNota = new javax.swing.JLabel();
         jLabelNotaDescripcion = new javax.swing.JLabel();
-        jPanelIndicadores = new javax.swing.JPanel();
+        jPanelIndicadores = new FondoPanelIndicadores();
         jButtonEnviar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPaneArea = new javax.swing.JTextPane();
@@ -101,14 +111,22 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanelCardLayout.setOpaque(false);
         jPanelCardLayout.setLayout(new java.awt.CardLayout());
 
         jPanelRegistrar.setName(""); // NOI18N
+        jPanelRegistrar.setOpaque(false);
 
+        jLabelTipoId.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jLabelTipoId.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTipoId.setText("Tipo de identificacion");
 
+        jLabelId.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jLabelId.setForeground(new java.awt.Color(255, 255, 255));
         jLabelId.setText("Numero de identificacion");
 
+        jLabelNombre.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jLabelNombre.setForeground(new java.awt.Color(255, 255, 255));
         jLabelNombre.setText("Nombre");
 
         jButtonSalir.setText("Salir");
@@ -119,19 +137,34 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         });
 
         buttonGroupTipo.add(jRadioButtonCC);
+        jRadioButtonCC.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jRadioButtonCC.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButtonCC.setText("CC");
         jRadioButtonCC.setEnabled(false);
 
         buttonGroupTipo.add(jRadioButtonTI);
+        jRadioButtonTI.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jRadioButtonTI.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButtonTI.setText("TI");
         jRadioButtonTI.setEnabled(false);
 
         buttonGroupTipo.add(jRadioButtonPP);
+        jRadioButtonPP.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jRadioButtonPP.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButtonPP.setText("PP");
         jRadioButtonPP.setEnabled(false);
+        jRadioButtonPP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPPActionPerformed(evt);
+            }
+        });
 
+        jLabelApellido.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jLabelApellido.setForeground(new java.awt.Color(255, 255, 255));
         jLabelApellido.setText("Apellido");
 
+        jLabelDireccion.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jLabelDireccion.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDireccion.setText("Direccion de domicilio");
 
         jTextFieldNombres.setEnabled(false);
@@ -188,15 +221,51 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
             }
         });
 
+        jLabelNota.setFont(new java.awt.Font("Ravie", 0, 24)); // NOI18N
         jLabelNota.setForeground(new java.awt.Color(0, 0, 255));
         jLabelNota.setText("Nota:");
 
-        jLabelNotaDescripcion.setText("<html>Digite un numero de identificacion y presione la tecla enter. El sistema automaticamente verifica si el paciente es existente o si es un nuevo registro y habilita sus correspondientes opciones. Presionar cancelar si desea cambiar el numero de identificacion.");
+        jLabelNotaDescripcion.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelNotaDescripcion.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        jLabelNotaDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNotaDescripcion.setText("<html>Digite un numero de identificacion y presione la tecla enter. El sistema automaticamente verifica si el paciente es existente o si es un nuevo registro habilitando sus correspondientes opciones. Presionar cancelar si desea cambiar el numero de identificacion.");
 
         javax.swing.GroupLayout jPanelRegistrarLayout = new javax.swing.GroupLayout(jPanelRegistrar);
         jPanelRegistrar.setLayout(jPanelRegistrarLayout);
         jPanelRegistrarLayout.setHorizontalGroup(
             jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addComponent(jLabelTipoId)
+                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jTextFieldId))
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonCC)
+                                .addGap(17, 17, 17)
+                                .addComponent(jRadioButtonTI)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonPP)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelId)
+                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
+                                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelDireccion)
+                                    .addComponent(jLabelApellido)
+                                    .addComponent(jLabelNombre))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 91, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
             .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
@@ -211,38 +280,16 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                         .addGap(10, 10, 10)
                         .addComponent(jButtonSalir))
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                .addComponent(jLabelApellido)
-                                .addGap(90, 90, 90)
-                                .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelDireccion)
-                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                        .addGap(130, 130, 130)
-                                        .addComponent(jRadioButtonCC))
-                                    .addComponent(jLabelTipoId))
-                                .addGap(17, 17, 17)
-                                .addComponent(jRadioButtonTI)
-                                .addGap(13, 13, 13)
-                                .addComponent(jRadioButtonPP))
-                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                .addComponent(jLabelNombre)
-                                .addGap(92, 92, 92)
-                                .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelId)
-                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                .addComponent(jLabelNota)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelNotaDescripcion))
-                            .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(34, 34, 34))
+                        .addContainerGap()
+                        .addComponent(jLabelNota)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabelNotaDescripcion)))
+                .addContainerGap())
+            .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRegistrarLayout.createSequentialGroup()
+                    .addContainerGap(184, Short.MAX_VALUE)
+                    .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(71, Short.MAX_VALUE)))
         );
         jPanelRegistrarLayout.setVerticalGroup(
             jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,8 +298,8 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                         .addComponent(jLabelNota)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabelNotaDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                        .addGap(0, 110, Short.MAX_VALUE))
+                    .addComponent(jLabelNotaDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelId)
@@ -261,33 +308,32 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonCC)
                     .addComponent(jLabelTipoId)
-                    .addComponent(jRadioButtonTI)
-                    .addComponent(jRadioButtonPP))
-                .addGap(26, 26, 26)
-                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButtonTI)
+                        .addComponent(jRadioButtonPP)))
+                .addGap(23, 23, 23)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
+                    .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRegistrarLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabelApellido))
                     .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelRegistrarLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabelDireccion))
+                .addGap(20, 20, 20)
+                .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDireccion)
                     .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonRegistrarPaciente)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonSalir))
                 .addContainerGap())
+            .addGroup(jPanelRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
         );
 
         jPanelCardLayout.add(jPanelRegistrar, "cardRegistrar");
@@ -373,7 +419,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanelRegsitroOrbLayout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(jButtonRegistrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
                 .addComponent(jButtonSalirRegsitrar)
                 .addGap(55, 55, 55))
         );
@@ -388,7 +434,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
                 .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPuerto)
                     .addComponent(jTextFieldPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addGroup(jPanelRegsitroOrbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRegistrar)
                     .addComponent(jButtonSalirRegsitrar))
@@ -686,6 +732,10 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirRegsitrarActionPerformed
 
+    private void jRadioButtonPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonPPActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -747,6 +797,7 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelDireccion;
     private javax.swing.JLabel jLabelId;
+    private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelIp;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelNota;
@@ -849,4 +900,26 @@ public class GUICliente2 extends javax.swing.JFrame implements Runnable{
         }
     }
 
+    //Poner fondo al panel
+    class FondoPanel extends JPanel{
+        private Image imagenFondo;
+        @Override
+        public void paint(Graphics g){
+            imagenFondo = new ImageIcon(getClass().getResource("/imagenes/coronavirus-hospital-sant-joan-deu-barcelona.jpg")).getImage();
+            g.drawImage(imagenFondo, 0, 0, getWidth(),getHeight(),this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+    
+        class FondoPanelIndicadores extends JPanel{
+        private Image imagenFondo;
+        @Override
+        public void paint(Graphics g){
+            imagenFondo = new ImageIcon(getClass().getResource("/imagenes/frecuencia.jpg")).getImage();
+            g.drawImage(imagenFondo, 0, 0, getWidth(),getHeight(),this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
 }
